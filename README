@@ -1,0 +1,57 @@
+     _                             _      
+  __| |_   _ _ __   __ _ _ __ ___ (_) ___ 
+ / _` | | | | '_ \ / _` | '_ ` _ \| |/ __|
+| (_| | |_| | | | | (_| | | | | | | | (__ 
+ \__,_|\__, |_| |_|\__,_|_| |_| |_|_|\___|
+       |___/                              
+          _           _               
+__      _(_)_ __   __| | _____      __
+\ \ /\ / / | '_ \ / _` |/ _ \ \ /\ / /
+ \ V  V /| | | | | (_| | (_) \ V  V / 
+  \_/\_/ |_|_| |_|\__,_|\___/ \_/\_/  
+                                      
+                                                __   _                  __  
+ _ __ ___   __ _ _ __   __ _  __ _  ___ _ __   / /__| |_      ___ __ ___\ \ 
+| '_ ` _ \ / _` | '_ \ / _` |/ _` |/ _ \ '__| | |/ _` \ \ /\ / / '_ ` _ \| |
+| | | | | | (_| | | | | (_| | (_| |  __/ |    | | (_| |\ V  V /| | | | | | |
+|_| |_| |_|\__,_|_| |_|\__,_|\__, |\___|_|    | |\__,_| \_/\_/ |_| |_| |_| |
+                             |___/             \_\                      /_/ 
+===========================================================================
+dwm is an extremely fast, small, and dynamic window manager for X.
+Patches 
+=======
+CenteredMaster,
+Fibonacci,
+FullGaps,
+FullScreen Window,
+Scratchpad, 
+StatusPadding, 
+Sticky, 
+TagGrid,
+TitleColor,
+Warp mouse to center of newly focused win. 
+
+Layouts available
+=================
+-Tile               [mod+t]
+-Monocle            [mod+m]
+-Floating           [mod+f]
+-Spiral             [mod+g]
+-Dwindle            [mod+w]
+-Centered Master    [mod+c]
+-Centered Floating  [mod+o]
+
+Requirements
+------------
+In order to build dwm you need the Xlib header files.
+
+
+Installation
+------------
+Edit config.mk to match your local setup (dwm is installed into
+the /usr/local namespace by default).
+
+Afterwards enter the following command to build and install dwm (if
+necessary as root):
+
+    make clean install
