@@ -46,12 +46,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class				instance    title       tags mask     iscentered   isfloating   monitor */
-	{ "gimp",				NULL,       NULL,       0,				0,			1,          -1 },
-	{ "feh",				NULL,		NULL,		0,				1,			1,			-1 },
-	{ "sxiv",				NULL,		NULL,		0,				1,			1,			-1 },
-	{ "gnome-calculator",	NULL,		NULL,		0,				1,			1,			-1 },
-	{ "firefox",			NULL,       NULL,       0,				1,          0,          -1 },
+	/* class				instance    title       tags mask     isfloating   monitor */
+	{ "gimp",				NULL,       NULL,       0,				1,          -1 },
+	{ "feh",				NULL,		NULL,		0,				1,			-1 },
+	{ "sxiv",				NULL,		NULL,		0,				1,			-1 },
+	{ "gnome-calculator",	NULL,		NULL,		0,				1,			-1 },
+	{ "firefox",			NULL,       NULL,       0,				0,          -1 },
 };
 
 /* layout(s) */

@@ -18,18 +18,10 @@ __      _(_)_ __   __| | _____      __
                              |___/             \_\                      /_/ 
 ===========================================================================
 dwm is an extremely fast, small, and dynamic window manager for X.
+
 Patches 
 =======
-CenteredMaster,
-Fibonacci,
-FullGaps,
-FullScreen Window,
-Scratchpad, 
-StatusPadding, 
-Sticky, 
-TagGrid,
-TitleColor,
-Warp mouse to center of newly focused win. 
+Patchset in patches directory.
 
 Layouts available
 =================
