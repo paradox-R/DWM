@@ -13,7 +13,7 @@ static const char *fonts[]          = {"FiraCode Nerd Font:style=Retina,Regular:
 static const char dmenufont[]       = "FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true";
 static const char col_NormFG[]      = "#FEFEFE";//"#282a36";#222222
 static const char col_NormBG[]      = "#181617";//"#444444";
-static const char col_SelFG[]       = "#E4312C";//"#e5e9f0";#bbbbbb
+static const char col_SelFG[]       = "#ad1b16";//"#E4312C";//"#e5e9f0";
 static const char col_SelBG[]       = "#181617";//"#eeeeee"
 static const char col_Border[]      = "#3D5A60";//"#005577"
 static const char *colors[][3]      = {
@@ -47,11 +47,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "gimp",    NULL,     NULL,           0,			1,          0,           0,        -1 },
-	{ "firefox", NULL,     NULL,           0,			1,          0,          -1,        -1 },
-	{ "st",      NULL,     NULL,           0,			0,          1,          -1,        -1 },
-	{ NULL,      NULL,     "Event Tester", 0,			1,          0,           1,        -1 }, /* xev */
+	/* class				instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "gimp",				NULL,     NULL,           0,			1,          0,           0,        -1 },
+	{ "gpick",				NULL,     NULL,           0,			1,          0,           0,        -1 },
+	{ "firefox",			NULL,     NULL,           0,			0,          0,          -1,        -1 },
+	{ "gnome-calculator",	NULL,     NULL,           0,			1,          0,          -1,        -1 },
+	{ "st",					NULL,     NULL,           0,			0,          1,          -1,        -1 },
+	{ "ranger",				NULL,     NULL,           0,			0,          1,          -1,        -1 },
+	{ NULL,					NULL,     "Event Tester", 0,			1,          0,           1,        -1 }, /* xev */
  
 };
 
@@ -63,7 +66,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ " ﬿ ",      tile },    /* first entry is default */
-	{ "<~>",      NULL },    /* no layout function means floating behavior */
+	{ "  ",      NULL },    /* no layout function means floating behavior */
 	{ "  ",      monocle },
 	{ " 𤋮",      centeredmaster },
 	{ "~𤋮",      centeredfloatingmaster },
@@ -86,7 +89,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "Run : ", "-l", "10", "-m", dmenumon, "-fn", dmenufont, \
 	"-nb", col_NormBG, "-nf", col_NormFG, "-sb", col_SelFG, "-sf", col_SelBG, NULL };
-static const char *termcmd[]  = { "st", "-t", " Terminal", NULL };
+static const char *termcmd[]  = { "st", "-t", " Terminal", NULL };
 static const char scratchpadname[] = " Scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", "-e", "vim", NULL };
 static const char *volToggle[] = { "volctl", "toggle", NULL };
