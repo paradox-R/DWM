@@ -1191,9 +1191,11 @@ manage(Window w, XWindowAttributes *wa)
 	}
 
 	if (c->x + WIDTH(c) > c->mon->mx + c->mon->mw)
-		c->x = c->mon->mx + c->mon->mw - WIDTH(c);
+		// c->x = c->mon->mx + c->mon->mw - WIDTH(c); //Commented for floating windows centered rule 
+		c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
 	if (c->y + HEIGHT(c) > c->mon->my + c->mon->mh)
-		c->y = c->mon->my + c->mon->mh - HEIGHT(c);
+		// c->y = c->mon->my + c->mon->mh - HEIGHT(c); //Commented for floating windows centered rule
+		c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
 	c->x = MAX(c->x, c->mon->mx);
 	/* only fix client y-offset, if the client center might cover the bar */
 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
@@ -1737,7 +1739,8 @@ setup(void)
 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
 		die("no fonts could be loaded.");
 	lrpad = drw->fonts->h;
-	bh = drw->fonts->h + 2;
+	// bh = drw->fonts->h + 2; //Commented out for bar height mod
+	bh = user_bh ? user_bh : drw->fonts->h + 2;
 	updategeom();
 	/* init atoms */
 	utf8string = XInternAtom(dpy, "UTF8_STRING", False);

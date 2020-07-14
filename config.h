@@ -9,6 +9,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int user_bh            = 20;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = {"FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true"};
 static const char dmenufont[]       = "FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true";
 static const char col_NormFG[]      = "#FEFEFE";//"#282a36";#222222
@@ -47,14 +48,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class				instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "gimp",				NULL,     NULL,           0,			1,          0,           0,        -1 },
-	{ "gpick",				NULL,     NULL,           0,			1,          0,           0,        -1 },
-	{ "firefox",			NULL,     NULL,           0,			0,          0,          -1,        -1 },
-	{ "gnome-calculator",	NULL,     NULL,           0,			1,          0,          -1,        -1 },
-	{ "st",					NULL,     NULL,           0,			0,          1,          -1,        -1 },
-	{ "ranger",				NULL,     NULL,           0,			0,          1,          -1,        -1 },
-	{ NULL,					NULL,     "Event Tester", 0,			1,          0,           1,        -1 }, /* xev */
+	/* class				instance	title		tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",				"gimp",		NULL,           0,			1,          0,           0,        -1 },
+	{ "Gpick",				"gpick",	NULL,           0,			1,          0,           0,        -1 },
+	{ "firefox",			NULL,		NULL,           0,			0,          0,          -1,        -1 },
+	{ "Gnome-calculator",	NULL,		NULL,           0,			1,          0,			 0,        -1 },
+	{ "st",					NULL,		NULL,           0,			0,          1,          -1,        -1 },
+	{ "ranger",				NULL,		NULL,           0,			0,          1,          -1,        -1 },
+	{ NULL,					NULL,		"Event Tester", 0,			1,          0,           1,        -1 }, /* xev */
  
 };
 
@@ -92,21 +93,22 @@ static const char *dmenucmd[] = { "dmenu_run", "-p", "Run : ", "-l", "10", "-m",
 static const char *termcmd[]  = { "st", "-t", " Terminal", NULL };
 static const char scratchpadname[] = " Scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", "-e", "vim", NULL };
-static const char *volToggle[] = { "volctl", "toggle", NULL };
-static const char *volUp[] = { "volctl", "up", NULL};
-static const char *volDown[] = { "volctl", "down", NULL};
-static const char *brightnessUp[] = { "britectl", "up", NULL };
-static const char *brightnessDown[] = { "britectl", "down", NULL };
-static const char *trackToggle[] = { "playerctl", "toggle", NULL };
-static const char *trackNxt[] = { "playerctl", "next", NULL };
-static const char *trackPrev[] = { "playerctl", "prev", NULL };
+static const char *volToggle[] = { "volCtl", "toggle", NULL };
+static const char *volUp[] = { "volCtl", "up", NULL};
+static const char *volDown[] = { "volCtl", "down", NULL};
+static const char *brightnessUp[] = { "briteCtl", "up", NULL };
+static const char *brightnessDown[] = { "briteCtl", "down", NULL };
+static const char *trackToggle[] = { "playerCtl", "toggle", NULL };
+static const char *trackNxt[] = { "playerCtl", "next", NULL };
+static const char *trackPrev[] = { "playerCtl", "prev", NULL };
 static const char *browser[] = { "runBrowser", NULL };
 static const char *fullSS[] = { "Screenshot", "full", NULL };
 static const char *selectiveSS[] = { "Screenshot", "", NULL };
 static const char *emojiMenu[] = { "emojiMenu", NULL };
 static const char *ytDownloader[] = { "YTDownloader", NULL };
 static const char *exitOps[] = { "exitOps", NULL };
-static const char *resMonitor[] = { "resourcemon", NULL };
+static const char *resMonitor[] = { "resourceMon", NULL };
+static const char *camOps[] = { "recorder", NULL};
 
 static Key keys[] = {
 	/* modifier             key							function        argument */
@@ -125,8 +127,9 @@ static Key keys[] = {
 	{ Mod1Mask,             XK_x,                       spawn,          {.v = selectiveSS } },
 	{ Mod1Mask,             XK_e,                       spawn,          {.v = emojiMenu } },
 	{ Mod1Mask,             XK_d,                       spawn,          {.v = ytDownloader } },
-	{ Mod1Mask,             XK_r,                       spawn,          {.v = resMonitor } },
 	{ MODKEY,               XK_l,                       spawn,          {.v = exitOps } },
+	{ Mod1Mask,             XK_r,                       spawn,          {.v = resMonitor } },
+	{ Mod1Mask,             XK_c,                       spawn,          {.v = camOps } },
 	{ MODKEY,               XK_grave,					togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,               XK_b,						togglebar,      {0} },
 	{ MODKEY,               XK_s,						togglesticky,   {0} },
