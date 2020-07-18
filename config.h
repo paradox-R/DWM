@@ -12,11 +12,11 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 20;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = {"FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true"};
 static const char dmenufont[]       = "FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true";
-static const char col_NormFG[]      = "#FEFEFE";//"#282a36";#222222
-static const char col_NormBG[]      = "#181617";//"#444444";
-static const char col_SelFG[]       = "#ad1b16";//"#E4312C";//"#e5e9f0";
-static const char col_SelBG[]       = "#181617";//"#eeeeee"
-static const char col_Border[]      = "#3D5A60";//"#005577"
+static const char col_NormFG[]      = "#ffffff";//"#282a36";#222222
+static const char col_NormBG[]      = "#0c0c0d";//"#444444";#181617
+static const char col_SelFG[]       = "#ad1b16";//"#E4312C";"#e5e9f0";
+static const char col_SelBG[]       = "#0c0c0d";//"#eeeeee"
+static const char col_Border[]      = "#3d5a60";//"#005577";#3d5a60
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_NormFG, col_NormBG, col_Border },
