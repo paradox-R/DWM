@@ -3,25 +3,26 @@
 #include "fibonacci.c"
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static unsigned int borderpx  = 0;        /* border pixel of windows */
+static unsigned int gappx     = 5;        /* gaps between windows */
+static unsigned int snap      = 32;       /* snap pixel */
+static int showbar            = 1;        /* 0 means no bar */
+static int topbar             = 1;        /* 0 means bottom bar */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 20;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = {"FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true"};
 static const char dmenufont[]       = "FiraCode Nerd Font:style=Retina,Regular:pixelsize=12:antialias=true:autohint=true";
-static const char col_NormFG[]      = "#ffffff";//"#282a36";#222222
-static const char col_NormBG[]      = "#0c0c0d";//"#444444";#181617
-static const char col_SelFG[]       = "#ad1b16";//"#E4312C";"#e5e9f0";
-static const char col_SelBG[]       = "#0c0c0d";//"#eeeeee"
-static const char col_Border[]      = "#3d5a60";//"#005577";#3d5a60
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_NormFG, col_NormBG, col_Border },
-	[SchemeSel]  = { col_SelFG, col_SelBG,  col_Border  },
-	[SchemeTitle]  = { col_NormFG, col_NormBG,  col_Border  },
+static char normFG[]		= "#ffffff";//"#282a36";#222222
+static char normBG[]		= "#0c0c0d";//"#444444";#181617
+static char selFG[]			= "#ad1b16";//"#E4312C";"#e5e9f0";
+static char selBG[]			= "#0c0c0d";//"#eeeeee"
+static char normBorder[]	= "#3d5a60";//"#005577";#3d5a60
+static char selBorder[]	= "#3d5a60";//"#005577";#3d5a60
+static char *colors[][3]      = {
+	/*               fg			bg		border   */
+	[SchemeNorm] = { normFG, normBG, normBorder },
+	[SchemeSel]  = { selFG, selBG,  selBorder  },
+	[SchemeTitle]  = { normFG, normBG,  normBorder  },
 };
 
 /* tagging */
@@ -49,20 +50,18 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class				instance	title		tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",				"gimp",		NULL,           0,			1,          0,           0,        -1 },
-	{ "Gpick",				"gpick",	NULL,           0,			1,          0,           0,        -1 },
-	{ "firefox",			NULL,		NULL,           0,			0,          0,          -1,        -1 },
-	{ "Gnome-calculator",	NULL,		NULL,           0,			1,          0,			 0,        -1 },
-	{ "st",					NULL,		NULL,           0,			0,          1,          -1,        -1 },
-	{ "ranger",				NULL,		NULL,           0,			0,          1,          -1,        -1 },
-	{ NULL,					NULL,		"Event Tester", 0,			1,          0,           1,        -1 }, /* xev */
+	{ "Gpick",				"gpick",	NULL,			0,			1,			0,			0,		-1 },
+	{ "firefox",			NULL,		NULL,			0,			0,			0,			-1,		-1 },
+	{ "Gnome-calculator",	NULL,		NULL,			0,			1,			0,			0,		-1 },
+	{ "st",					NULL,		NULL,			0,			0,			1,			-1,		-1 },
+	{ NULL,					NULL,		"Event Tester", 0,			1,			0,			1,		-1 }, /* xev */
  
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static int nmaster     = 1;    /* number of clients in master area */
+static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -89,7 +88,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "Run : ", "-l", "10", "-m", dmenumon, "-fn", dmenufont, \
-	"-nb", col_NormBG, "-nf", col_NormFG, "-sb", col_SelFG, "-sf", col_SelBG, NULL };
+	"-nb", normBG, "-nf", normFG, "-sb", selFG, "-sf", selBG, NULL };
 static const char *termcmd[]  = { "st", "-t", " Terminal", NULL };
 static const char scratchpadname[] = " Scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", "-e", "vim", NULL };
@@ -109,6 +108,26 @@ static const char *ytDownloader[] = { "YTDownloader", NULL };
 static const char *exitOps[] = { "exitOps", NULL };
 static const char *resMonitor[] = { "resourceMon", NULL };
 static const char *camOps[] = { "recorder", NULL};
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+		{ "normBG",			STRING,  &normBG },
+		{ "normBorder",		STRING,  &normBorder },
+		{ "normFG",			STRING,  &normFG },
+		{ "selBG",			STRING,  &selBG },
+		{ "selBorder",		STRING,  &selBorder },
+		{ "selFG",			STRING,  &selFG },
+		{ "borderpx",		INTEGER, &borderpx },
+		{ "gappx",			INTEGER, &gappx },
+		{ "snap",          	INTEGER, &snap },
+		{ "showbar",        INTEGER, &showbar },
+		{ "topbar",         INTEGER, &topbar },
+		{ "nmaster",        INTEGER, &nmaster },
+		{ "resizehints",    INTEGER, &resizehints },
+		{ "mfact",      	FLOAT,   &mfact },
+};
 
 static Key keys[] = {
 	/* modifier             key							function        argument */
