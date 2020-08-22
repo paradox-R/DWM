@@ -21,8 +21,8 @@ static char selBorder[]	= "#3d5a60";//"#005577";#3d5a60
 static char *colors[][3]      = {
 	/*               fg			bg		border   */
 	[SchemeNorm] = { normFG, normBG, normBorder },
-	[SchemeSel]  = { selFG, selBG,  selBorder  },
-	[SchemeTitle]  = { normFG, normBG,  normBorder  },
+	[SchemeSel]  = { selFG, selBG, selBorder },
+	[SchemeTitle]  = { normFG, normBG, normBorder },
 };
 
 /* tagging */
